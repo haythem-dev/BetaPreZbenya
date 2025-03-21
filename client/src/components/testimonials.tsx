@@ -1,87 +1,176 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { GradientBackground } from "@/components/ui/background-patterns";
 
-interface Testimonial {
+interface ChatMessage {
   id: number;
   content: string;
-  name: string;
-  initials: string;
-  role: string;
-  avatarColor: string;
-  rating: number;
+  sender: "user" | "bot";
+  timestamp: Date;
 }
 
-const testimonials: Testimonial[] = [
+const initialMessages: ChatMessage[] = [
   {
     id: 1,
-    content: "The wireless headphones I purchased exceeded my expectations. The sound quality is amazing and the battery lasts for days. Highly recommend!",
-    name: "John Doe",
-    initials: "JD",
-    role: "Verified Buyer",
-    avatarColor: "primary",
-    rating: 5
-  },
-  {
-    id: 2,
-    content: "Fast shipping and excellent customer service. When I had questions about my order, the support team was quick to respond and very helpful.",
-    name: "Amanda Smith",
-    initials: "AS",
-    role: "Verified Buyer",
-    avatarColor: "secondary",
-    rating: 5
-  },
-  {
-    id: 3,
-    content: "I've been shopping here for years and have always had a positive experience. The product selection is great and prices are competitive.",
-    name: "Robert Johnson",
-    initials: "RJ",
-    role: "Verified Buyer",
-    avatarColor: "accent",
-    rating: 4.5
+    content: "👋 Hello! Welcome to Zbenya Systems Smart Chat. How can I help you today?",
+    sender: "bot",
+    timestamp: new Date()
   }
 ];
 
-export default function Testimonials() {
+// Predefined responses for demo purposes
+const botResponses: Record<string, string> = {
+  "services": "Zbenya Systems offers a range of services including custom software development, web and mobile app development, IT consulting, cloud solutions, and DevOps automation. Would you like to know more about any specific service?",
+  "about": "Zbenya Systems is a technology company specializing in innovative software solutions. We help businesses transform their digital presence through cutting-edge technology and expert consulting.",
+  "contact": "You can reach us at contact.beta.zbenyasystems@gmail.com or through the contact form on our website. Our team typically responds within 24 hours.",
+  "careers": "We're always looking for talented individuals to join our team! Check out the 'Apply' section of our website to submit your CV or a spontaneous application.",
+  "freelance": "We offer various freelance opportunities for developers, designers, and IT professionals. Visit our 'Freelance' section to browse current openings and apply.",
+  "hello": "Hi there! How can I assist you with Zbenya Systems' services today?"
+};
+
+export default function SmartChat() {
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
+  const [inputMessage, setInputMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSendMessage = () => {
+    if (inputMessage.trim() === "") return;
+
+    const userMessage: ChatMessage = {
+      id: messages.length + 1,
+      content: inputMessage,
+      sender: "user",
+      timestamp: new Date()
+    };
+
+    setMessages([...messages, userMessage]);
+    setInputMessage("");
+    setIsSending(true);
+
+    // Simulate processing time
+    setTimeout(() => {
+      const botMessage: ChatMessage = {
+        id: messages.length + 2,
+        content: generateBotResponse(inputMessage),
+        sender: "bot",
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, botMessage]);
+      setIsSending(false);
+    }, 1000);
+  };
+
+  const generateBotResponse = (message: string): string => {
+    const normalizedMessage = message.toLowerCase();
+    
+    // Check for keywords in the user's message
+    for (const [keyword, response] of Object.entries(botResponses)) {
+      if (normalizedMessage.includes(keyword.toLowerCase())) {
+        return response;
+      }
+    }
+
+    // Default response if no keywords match
+    return "Thank you for your message. For more specific information about Zbenya Systems, please visit our website or contact us directly at contact.beta.zbenyasystems@gmail.com";
+  };
+
+  const formatTime = (date: Date): string => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   return (
-    <section className="py-16 bg-white">
+    <GradientBackground className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Smart Chat Assistant</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Hear from our satisfied customers about their experience shopping with us
+            Have questions about our services? Our AI assistant is here to help you 24/7
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow transition-all duration-300">
-              <div className="flex text-amber-500 mb-4">
-                {[...Array(Math.floor(testimonial.rating))].map((_, i) => (
-                  <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                  </svg>
-                ))}
-                {testimonial.rating % 1 !== 0 && (
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                  </svg>
-                )}
+        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="bg-primary text-white p-4">
+            <div className="flex items-center">
+              <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center text-white mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
               </div>
-              <p className="text-gray-600 mb-6">
-                "{testimonial.content}"
-              </p>
-              <div className="flex items-center">
-                <div className={`h-10 w-10 rounded-full bg-${testimonial.avatarColor}/20 flex items-center justify-center text-${testimonial.avatarColor} font-bold mr-3`}>
-                  {testimonial.initials}
-                </div>
-                <div>
-                  <h4 className="font-medium text-gray-900">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
-                </div>
+              <div>
+                <h3 className="font-medium">Zbenya Systems Assistant</h3>
+                <p className="text-xs text-white/80">Online | Typically replies instantly</p>
               </div>
             </div>
-          ))}
+          </div>
+          
+          <div className="h-96 overflow-y-auto p-4 bg-gray-50">
+            {messages.map((message) => (
+              <div 
+                key={message.id} 
+                className={`mb-4 flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+              >
+                <div 
+                  className={`max-w-[75%] rounded-lg px-4 py-2 ${
+                    message.sender === "user" 
+                      ? "bg-primary text-white rounded-tr-none" 
+                      : "bg-white text-gray-800 shadow rounded-tl-none"
+                  }`}
+                >
+                  <p>{message.content}</p>
+                  <p className={`text-xs mt-1 ${message.sender === "user" ? "text-white/80" : "text-gray-500"}`}>
+                    {formatTime(message.timestamp)}
+                  </p>
+                </div>
+              </div>
+            ))}
+            {isSending && (
+              <div className="flex justify-start mb-4">
+                <div className="bg-white text-gray-800 rounded-lg rounded-tl-none px-4 py-2 shadow max-w-[75%]">
+                  <div className="flex space-x-1">
+                    <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"></div>
+                    <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                    <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: "0.4s" }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+          
+          <div className="p-4 border-t">
+            <div className="flex">
+              <input
+                type="text"
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                placeholder="Type your message here..."
+                className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <button
+                onClick={handleSendMessage}
+                className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-r-lg transition"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              This is a demonstration of our smart chat. For complex inquiries, please contact us directly.
+            </p>
+          </div>
         </div>
       </div>
-    </section>
+    </GradientBackground>
   );
 }

@@ -8,36 +8,61 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="md:flex md:items-center md:justify-between">
           <div className="md:w-1/2 mb-8 md:mb-0">
+            <Badge variant="featured" className="mb-4">
+              Innovation Technology
+            </Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
-              Discover Premium Tech <span className="text-primary">Solutions</span>
+              Innovative <span className="text-primary">Tech Solutions</span> for Your Business
             </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Explore our curated collection of high-quality electronics and tech accessories for your professional and personal needs.
+              Zbenya Systems delivers cutting-edge software development, IT consulting, and digital transformation services to help your business thrive in the digital age.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <a href="#" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg shadow-md transition duration-300 text-center">
-                Shop Now
+              <a href="/services" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg shadow-md transition duration-300 text-center">
+                Our Services
               </a>
-              <a href="#" className="bg-white hover:bg-gray-100 text-gray-900 font-medium py-3 px-6 rounded-lg border border-gray-200 shadow-sm transition duration-300 text-center">
-                Learn More
+              <a href="/contact" className="bg-white hover:bg-gray-100 text-gray-900 font-medium py-3 px-6 rounded-lg border border-gray-200 shadow-sm transition duration-300 text-center">
+                Contact Us
               </a>
             </div>
           </div>
           <div className="md:w-1/2">
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden p-6 relative">
-              <Badge variant="featured" className="absolute top-0 right-0 rounded-bl-lg py-1 px-3">
-                Featured
-              </Badge>
-              <img 
-                src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
-                alt="Featured product" 
-                className="w-full h-64 object-cover object-center rounded-lg mb-4"
-              />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Wireless Pro Headphones</h3>
-              <p className="text-gray-600 mb-3">Premium noise-cancelling headphones for immersive audio experience</p>
-              <div className="flex justify-between items-center">
-                <span className="text-primary font-bold text-xl">$249.99</span>
-                <span className="line-through text-gray-400">$299.99</span>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-primary mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                  <h3 className="text-sm font-semibold text-gray-900">Software Development</h3>
+                </div>
+                <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-primary mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                  </svg>
+                  <h3 className="text-sm font-semibold text-gray-900">IT Consulting</h3>
+                </div>
+                <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-primary mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                  </svg>
+                  <h3 className="text-sm font-semibold text-gray-900">Cloud Solutions</h3>
+                </div>
+                <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-primary mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                  <h3 className="text-sm font-semibold text-gray-900">Talent Solutions</h3>
+                </div>
+              </div>
+              <div className="mt-4 text-center">
+                <p className="text-gray-600 text-sm">Trusted by businesses worldwide to deliver exceptional tech solutions</p>
               </div>
             </div>
           </div>
