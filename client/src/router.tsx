@@ -7,6 +7,7 @@ import Products from "@/pages/Products";
 import Offers from "@/pages/Offers";
 import Subscribe from "@/pages/Subscribe";
 import NotFound from "@/pages/not-found";
+import Apply from "@/pages/Apply";
 
 export default function Router() {
   return (
@@ -18,6 +19,7 @@ export default function Router() {
         <Route path="/offers" element={<Offers />} />
         <Route path="/subscribe" element={<Subscribe />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/apply" element={<Apply />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

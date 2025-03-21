@@ -18,14 +18,22 @@ export default function Home() {
             Welcome to Zbenya Systems
           </h1>
           <p className="text-xl text-white/90 mb-8">
-            Delivering cutting-edge software solutions and IT services to transform your business in the digital age.
+            We are a leading technology company specializing in innovative software solutions, IT consulting, and digital transformation. Our mission is to help businesses thrive in the digital age through cutting-edge technology and expert services.
           </p>
-          <Link 
-            to="/services" 
-            className="inline-block bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-lg transition duration-300"
-          >
-            Explore Our Services
-          </Link>
+          <div className="flex gap-4 justify-center">
+            <Link 
+              to="/services" 
+              className="inline-block bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-lg transition duration-300"
+            >
+              Our Services
+            </Link>
+            <Link 
+              to="/contact" 
+              className="inline-block bg-white/20 hover:bg-white/30 text-white font-medium py-3 px-8 rounded-lg transition duration-300 backdrop-blur-sm"
+            >
+              Contact Us
+            </Link>
+          </div>
         </div>
       </div>
     </div>
