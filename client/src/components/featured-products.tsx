@@ -2,6 +2,54 @@ import React from "react";
 import { ParticlesBackground } from "@/components/ui/animated-background";
 import { Badge } from "@/components/ui/badge";
 
+export function FeaturedProducts() {
+  const products = [
+    {
+      id: 1,
+      title: "Custom Web Development",
+      description: "Bespoke websites tailored to your needs",
+      price: "Starting at $2000",
+      badge: "Popular"
+    },
+    {
+      id: 2,
+      title: "Mobile App Development",
+      description: "Native iOS and Android applications",
+      price: "Starting at $3000",
+      badge: "Featured"
+    },
+    {
+      id: 3,
+      title: "UI/UX Design",
+      description: "Modern and intuitive user interfaces",
+      price: "Starting at $1500",
+      badge: "New"
+    }
+  ];
+
+  return (
+    <section className="py-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12">Featured Services</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <div key={product.id} className="bg-white rounded-lg shadow-lg p-6">
+              {product.badge && (
+                <Badge className="mb-4" variant="secondary">
+                  {product.badge}
+                </Badge>
+              )}
+              <h3 className="text-xl font-semibold mb-2">{product.title}</h3>
+              <p className="text-gray-600 mb-4">{product.description}</p>
+              <p className="text-primary font-bold">{product.price}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 interface FreelanceOpportunity {
   id: number;
   title: string;
@@ -87,22 +135,25 @@ export default function FreelanceOpportunities() {
             </svg>
           </a>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {opportunities.map((opportunity) => (
-            <div 
-              key={opportunity.id} 
+            <div
+              key={opportunity.id}
               className="bg-white/80 backdrop-blur-md rounded-xl overflow-hidden shadow hover:shadow-lg hover:translate-y-[-5px] transition-all duration-300 border border-white/50"
             >
               <div className="p-5 md:p-6">
                 <div className="flex flex-wrap justify-between items-start mb-4">
                   <h3 className="text-lg md:text-xl font-semibold text-gray-900 mr-2">{opportunity.title}</h3>
                   {opportunity.badge && (
-                    <Badge 
+                    <Badge
                       variant={
-                        opportunity.badge.type === "urgent" ? "accent" : 
-                        opportunity.badge.type === "remote" ? "secondary" : "featured"
-                      } 
+                        opportunity.badge.type === "urgent"
+                          ? "accent"
+                          : opportunity.badge.type === "remote"
+                          ? "secondary"
+                          : "featured"
+                      }
                       className="text-xs px-2 py-1 rounded-full"
                     >
                       {opportunity.badge.label}
@@ -132,8 +183,8 @@ export default function FreelanceOpportunities() {
                   </div>
                 </div>
                 <div className="flex flex-wrap justify-between items-center gap-3 mt-2">
-                  <a 
-                    href={`/freelance/${opportunity.id}`} 
+                  <a
+                    href={`/freelance/${opportunity.id}`}
                     className="text-primary font-medium flex items-center hover:underline"
                   >
                     View Details
@@ -141,8 +192,8 @@ export default function FreelanceOpportunities() {
                       <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </a>
-                  <a 
-                    href="/apply" 
+                  <a
+                    href="/apply"
                     className="bg-primary hover:bg-primary/90 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
                   >
                     Apply Now
@@ -152,7 +203,7 @@ export default function FreelanceOpportunities() {
             </div>
           ))}
         </div>
-        
+
         <div className="mt-8 text-center md:hidden">
           <a href="/freelance" className="inline-block bg-white hover:bg-gray-100 text-primary font-medium py-2 px-6 rounded-lg border border-primary/20 transition duration-300">
             View All Opportunities
