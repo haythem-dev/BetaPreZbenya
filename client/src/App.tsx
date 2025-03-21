@@ -24,25 +24,28 @@ function Router() {
 function App() {
   // Add smooth scrolling behavior to all anchor links
   useEffect(() => {
+    const handleClick = (e: Event) => {
+      e.preventDefault();
+      const anchor = e.currentTarget as HTMLAnchorElement;
+      const targetId = anchor.getAttribute('href')?.substring(1);
+      if (!targetId) return;
+      
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    };
+    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href')?.substring(1);
-        if (!targetId) return;
-        
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+      anchor.addEventListener('click', handleClick);
     });
     
     return () => {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.removeEventListener('click', function (e) {});
+        anchor.removeEventListener('click', handleClick);
       });
     };
   }, []);
