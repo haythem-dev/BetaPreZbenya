@@ -1,4 +1,69 @@
 import React from "react";
+
+export function Categories() {
+  const categories = [
+    {
+      id: 1,
+      name: "Software Development",
+      description: "Custom software solutions tailored to your business needs.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      )
+    },
+    {
+      id: 2,
+      name: "Mobile Development",
+      description: "Native and cross-platform mobile applications.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+      )
+    },
+    {
+      id: 3,
+      name: "Web Development",
+      description: "Modern, responsive web applications and websites.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      )
+    },
+    {
+      id: 4,
+      name: "IT Consulting & Strategy",
+      description: "Expert guidance to help you navigate the complex technology landscape.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+          <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+        </svg>
+      )
+    }
+  ];
+
+  return (
+    <div className="py-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {categories.map((category) => (
+          <div key={category.id} className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="mb-4">{category.icon}</div>
+            <h3 className="text-xl font-semibold mb-2">{category.name}</h3>
+            <p className="text-gray-600">{category.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+import React from "react";
 import { GridBackground } from "@/components/ui/animated-background";
 
 interface ServiceItem {
@@ -95,11 +160,11 @@ export default function Services() {
             We offer a comprehensive range of technology services to help your business thrive in the digital age
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {services.map((service) => (
-            <div 
-              key={service.id} 
+            <div
+              key={service.id}
               className="bg-white/80 backdrop-blur-md rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:translate-y-[-5px] transition-all duration-300 p-6 border border-white/50"
             >
               <div className="flex justify-center mb-4">
@@ -110,8 +175,8 @@ export default function Services() {
               <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">{service.name}</h3>
               <p className="text-gray-700 text-center mb-4">{service.description}</p>
               <div className="flex justify-center">
-                <a 
-                  href={`/services#${service.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                <a
+                  href={`/services#${service.name.toLowerCase().replace(/\s+/g, '-')}`}
                   className="text-primary font-medium flex items-center hover:underline"
                 >
                   Learn More
