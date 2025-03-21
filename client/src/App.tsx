@@ -4,6 +4,10 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import Services from "@/pages/Services";
+import Freelance from "@/pages/Freelance";
+import Apply from "@/pages/Apply";
+import Contact from "@/pages/Contact";
 import { useEffect } from "react";
 
 function Router() {
