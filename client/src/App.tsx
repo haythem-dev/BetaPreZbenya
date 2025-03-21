@@ -10,10 +10,24 @@ import Apply from "@/pages/Apply";
 import Contact from "@/pages/Contact";
 import { useEffect } from "react";
 
+//Added Navigation Component
+const Navigation = () => (
+  <nav className="bg-gray-800 p-4 fixed top-0 w-full z-10">
+    <ul className="flex justify-center space-x-4">
+      <li><a href="#home" className="text-white hover:text-gray-300">Home</a></li>
+      <li><a href="#services" className="text-white hover:text-gray-300">Services</a></li>
+      <li><a href="#freelance" className="text-white hover:text-gray-300">Freelance</a></li>
+      <li><a href="#apply" className="text-white hover:text-gray-300">Apply</a></li>
+      <li><a href="#contact" className="text-white hover:text-gray-300">Contact</a></li>
+    </ul>
+  </nav>
+);
+
+
 function Router() {
   return (
     <Switch>
-      <Route exact path="/" component={Home}/>
+      <Route path="/" component={Home}/>
       <Route path="/services" component={Services}/>
       <Route path="/freelance" component={Freelance}/>
       <Route path="/apply" component={Apply}/>
@@ -31,7 +45,7 @@ function App() {
       const anchor = e.currentTarget as HTMLAnchorElement;
       const targetId = anchor.getAttribute('href')?.substring(1);
       if (!targetId) return;
-      
+
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
         targetElement.scrollIntoView({
@@ -40,23 +54,26 @@ function App() {
         });
       }
     };
-    
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', handleClick);
     });
-    
+
     return () => {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.removeEventListener('click', handleClick);
       });
     };
   }, []);
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        <Router />
-        <Toaster />
+        <Navigation />
+        <div className="pt-16"> {/* Add padding to account for fixed header */}
+          <Router />
+          <Toaster />
+        </div>
       </div>
     </QueryClientProvider>
   );
