@@ -9,11 +9,11 @@ import { useEffect } from "react";
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home}/>
-      <Route path="/services" component={() => <div>Services Page</div>}/>
-      <Route path="/freelance" component={() => <div>Freelance Page</div>}/>
-      <Route path="/apply" component={() => <div>Apply Page</div>}/>
-      <Route path="/contact" component={() => <div>Contact Page</div>}/>
+      <Route exact path="/" component={Home}/>
+      <Route path="/services" component={Services}/>
+      <Route path="/freelance" component={Freelance}/>
+      <Route path="/apply" component={Apply}/>
+      <Route path="/contact" component={Contact}/>
       <Route component={NotFound} />
     </Switch>
   );
