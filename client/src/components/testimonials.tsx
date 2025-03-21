@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { GradientBackground } from "@/components/ui/background-patterns";
+import { WavesBackground } from "@/components/ui/animated-background";
 
 interface ChatMessage {
   id: number;
@@ -24,7 +24,10 @@ const botResponses: Record<string, string> = {
   "contact": "You can reach us at contact.beta.zbenyasystems@gmail.com or through the contact form on our website. Our team typically responds within 24 hours.",
   "careers": "We're always looking for talented individuals to join our team! Check out the 'Apply' section of our website to submit your CV or a spontaneous application.",
   "freelance": "We offer various freelance opportunities for developers, designers, and IT professionals. Visit our 'Freelance' section to browse current openings and apply.",
-  "hello": "Hi there! How can I assist you with Zbenya Systems' services today?"
+  "hello": "Hi there! How can I assist you with Zbenya Systems' services today?",
+  "technology": "We specialize in a wide range of technologies including React, Node.js, TypeScript, Python, AWS, Docker, and many more. Our technical expertise allows us to deliver cutting-edge solutions.",
+  "cloud": "Our cloud services help businesses leverage the power of AWS, Azure, or Google Cloud to build scalable, secure, and cost-effective infrastructure.",
+  "ai": "We're exploring innovative AI solutions for businesses, including machine learning models, natural language processing, and data analytics to drive intelligent decision-making."
 };
 
 export default function SmartChat() {
@@ -88,16 +91,18 @@ export default function SmartChat() {
   };
 
   return (
-    <GradientBackground className="py-16">
+    <WavesBackground className="py-16 overflow-hidden" speed="medium" density="high">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Smart Chat Assistant</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Have questions about our services? Our AI assistant is here to help you 24/7
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 backdrop-blur-sm bg-white/50 inline-block px-4 py-2 rounded-lg">
+            Smart Chat Assistant
+          </h2>
+          <p className="text-gray-700 max-w-2xl mx-auto backdrop-blur-sm bg-white/50 p-3 rounded-lg inline-block">
+            Have questions about our IT, high-tech, or freelance services? Our AI assistant is here to help you 24/7
           </p>
         </div>
         
-        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div className="max-w-3xl mx-auto bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden border border-white/50">
           <div className="bg-primary text-white p-4">
             <div className="flex items-center">
               <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center text-white mr-3">
@@ -112,7 +117,7 @@ export default function SmartChat() {
             </div>
           </div>
           
-          <div className="h-96 overflow-y-auto p-4 bg-gray-50">
+          <div className="h-80 sm:h-96 overflow-y-auto p-4 bg-gray-50/80">
             {messages.map((message) => (
               <div 
                 key={message.id} 
@@ -125,7 +130,7 @@ export default function SmartChat() {
                       : "bg-white text-gray-800 shadow rounded-tl-none"
                   }`}
                 >
-                  <p>{message.content}</p>
+                  <p className="break-words">{message.content}</p>
                   <p className={`text-xs mt-1 ${message.sender === "user" ? "text-white/80" : "text-gray-500"}`}>
                     {formatTime(message.timestamp)}
                   </p>
@@ -146,7 +151,7 @@ export default function SmartChat() {
             <div ref={messagesEndRef} />
           </div>
           
-          <div className="p-4 border-t">
+          <div className="p-4 border-t border-gray-200">
             <div className="flex">
               <input
                 type="text"
@@ -165,12 +170,38 @@ export default function SmartChat() {
                 </svg>
               </button>
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <div className="mt-3 flex flex-wrap gap-2 justify-center">
+              <button 
+                onClick={() => setInputMessage("Tell me about your services")}
+                className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full transition"
+              >
+                Services
+              </button>
+              <button 
+                onClick={() => setInputMessage("Tell me about freelance opportunities")}
+                className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full transition"
+              >
+                Freelance
+              </button>
+              <button 
+                onClick={() => setInputMessage("How can I contact you?")}
+                className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full transition"
+              >
+                Contact
+              </button>
+              <button 
+                onClick={() => setInputMessage("What technologies do you work with?")}
+                className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full transition"
+              >
+                Technologies
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 mt-2 text-center">
               This is a demonstration of our smart chat. For complex inquiries, please contact us directly.
             </p>
           </div>
         </div>
       </div>
-    </GradientBackground>
+    </WavesBackground>
   );
 }

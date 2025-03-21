@@ -1,5 +1,5 @@
 import React from "react";
-import { DotsPattern } from "@/components/ui/background-patterns";
+import { GridBackground } from "@/components/ui/animated-background";
 
 interface ServiceItem {
   id: number;
@@ -85,28 +85,35 @@ const services: ServiceItem[] = [
 
 export default function Services() {
   return (
-    <DotsPattern className="py-16">
+    <GridBackground className="py-16 overflow-hidden" speed="slow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Services</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 backdrop-blur-sm bg-white/50 inline-block px-4 py-2 rounded-lg">
+            Our Services
+          </h2>
+          <p className="text-gray-700 max-w-2xl mx-auto backdrop-blur-sm bg-white/50 p-3 rounded-lg inline-block">
             We offer a comprehensive range of technology services to help your business thrive in the digital age
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {services.map((service) => (
             <div 
               key={service.id} 
-              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 card-hover p-6"
+              className="bg-white/80 backdrop-blur-md rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:translate-y-[-5px] transition-all duration-300 p-6 border border-white/50"
             >
               <div className="flex justify-center mb-4">
-                {service.icon}
+                <div className="bg-primary/10 rounded-full p-3">
+                  {service.icon}
+                </div>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">{service.name}</h3>
-              <p className="text-gray-600 text-center mb-4">{service.description}</p>
+              <p className="text-gray-700 text-center mb-4">{service.description}</p>
               <div className="flex justify-center">
-                <a href={`/services#${service.name.toLowerCase().replace(/\s+/g, '-')}`} className="text-primary font-medium flex items-center">
+                <a 
+                  href={`/services#${service.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                  className="text-primary font-medium flex items-center hover:underline"
+                >
                   Learn More
                   <svg className="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -117,6 +124,6 @@ export default function Services() {
           ))}
         </div>
       </div>
-    </DotsPattern>
+    </GridBackground>
   );
 }
