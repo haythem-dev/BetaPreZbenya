@@ -62,7 +62,7 @@ const technologies: TechItem[] = [
   }
 ];
 
-export default function TechShowcase() {
+export function TechShowcase() {
   const [activeItem, setActiveItem] = useState<number | null>(null);
   const [animatedItems, setAnimatedItems] = useState<number[]>([]);
 
