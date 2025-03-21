@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { DotsPattern } from "@/components/ui/background-patterns";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ApplicationSection() {
   const [activeTab, setActiveTab] = useState("cv");
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     linkedin: "",
     message: "",
-    file: null,
+    file: null as File | null,
     position: "",
     experience: "",
     portfolioUrl: ""
@@ -34,29 +38,74 @@ export default function ApplicationSection() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real implementation, this would send the form data to an email service
-    // or backend endpoint that would forward it to contact.beta.zbenyasystems@gmail.com
-    console.log("Form submitted:", formData);
-    // For now, we'll just show a success message
-    setFormSubmitted(true);
     
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        linkedin: "",
-        message: "",
-        file: null,
-        position: "",
-        experience: "",
-        portfolioUrl: ""
+    try {
+      setIsSubmitting(true);
+      
+      // Create form data for file upload
+      const submitData = new FormData();
+      submitData.append("name", formData.name);
+      submitData.append("email", formData.email);
+      submitData.append("message", formData.message);
+      
+      if (formData.phone) submitData.append("phone", formData.phone);
+      if (formData.linkedin) submitData.append("linkedin", formData.linkedin);
+      
+      if (activeTab === "cv") {
+        if (formData.position) submitData.append("position", formData.position);
+        if (formData.experience) submitData.append("experience", formData.experience);
+      } else {
+        if (formData.portfolioUrl) submitData.append("portfolioUrl", formData.portfolioUrl);
+      }
+      
+      // Append file if it exists
+      if (formData.file) {
+        submitData.append("cv", formData.file);
+      }
+      
+      // Call API endpoint
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        body: submitData,
       });
-    }, 3000);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit application");
+      }
+      
+      // Show success message
+      setFormSubmitted(true);
+      
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          linkedin: "",
+          message: "",
+          file: null,
+          position: "",
+          experience: "",
+          portfolioUrl: ""
+        });
+      }, 5000);
+      
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      
+      toast({
+        title: "Submission Failed",
+        description: error instanceof Error ? error.message : "Failed to submit application. Please try again later.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
