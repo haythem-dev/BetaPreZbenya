@@ -1,7 +1,7 @@
 
 import React from "react";
 import { FeaturedProducts } from "@/components/featured-products";
-import { SpecialOffer } from "@/components/special-offer";
+import SpecialOffer from "@/components/special-offer";
 
 export default function Freelance() {
   return (
