@@ -1,4 +1,12 @@
 import React from "react";
+import { GridBackground } from "@/components/ui/animated-background";
+
+interface ServiceItem {
+  id: number;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+}
 
 export function Categories() {
   const categories = [
@@ -62,15 +70,6 @@ export function Categories() {
       </div>
     </div>
   );
-}
-import React from "react";
-import { GridBackground } from "@/components/ui/animated-background";
-
-interface ServiceItem {
-  id: number;
-  name: string;
-  description: string;
-  icon: React.ReactNode;
 }
 
 const services: ServiceItem[] = [
