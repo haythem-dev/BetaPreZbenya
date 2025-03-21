@@ -4,14 +4,17 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import { useEffect } from "react";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home}/>
       {/* Add more pages below */}
-      {/* <Route path="/shop" component={Shop}/> */}
-      {/* <Route path="/product/:id" component={ProductDetail}/> */}
+      {/* <Route path="/services" component={Services}/> */}
+      {/* <Route path="/freelance" component={Freelance}/> */}
+      {/* <Route path="/apply" component={Apply}/> */}
+      {/* <Route path="/contact" component={Contact}/> */}
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
@@ -19,10 +22,37 @@ function Router() {
 }
 
 function App() {
+  // Add smooth scrolling behavior to all anchor links
+  useEffect(() => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href')?.substring(1);
+        if (!targetId) return;
+        
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+    
+    return () => {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.removeEventListener('click', function (e) {});
+      });
+    };
+  }, []);
+  
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
-      <Toaster />
+      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        <Router />
+        <Toaster />
+      </div>
     </QueryClientProvider>
   );
 }

@@ -169,44 +169,7 @@ export default function TechShowcase() {
           </div>
         </div>
       </div>
-      
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes slideInRight {
-          from { opacity: 0; transform: translateX(50px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes scaleIn {
-          from { opacity: 0; transform: scale(0.8); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes rotateIn {
-          from { opacity: 0; transform: rotate(-15deg); }
-          to { opacity: 1; transform: rotate(0); }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.8s ease forwards;
-        }
-        
-        .animate-slideInRight {
-          animation: slideInRight 0.8s ease forwards;
-        }
-        
-        .animate-scaleIn {
-          animation: scaleIn 0.8s ease forwards;
-        }
-        
-        .animate-rotateIn {
-          animation: rotateIn 0.8s ease forwards;
-        }
-      `}</style>
     </ParticlesBackground>
   );
+}
 }
